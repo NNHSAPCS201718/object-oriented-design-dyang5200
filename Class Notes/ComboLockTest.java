@@ -21,7 +21,8 @@ public class ComboLockTest
       boolean turningRight = true;
       while(!opened)
       {
-         System.out.println("Enter number of ticks to turn to the " + (turningRight ? "right" : "left") + " 0 - 39. Enter an invalid number to quit.");
+         System.out.println("Enter number of ticks to turn to the " + 
+         (turningRight ? "right" : "left") + " 0 - 39. Enter an invalid number to quit.");
          int ticks = in.nextInt();
          if((ticks < 0) || (ticks > 39))
          {
