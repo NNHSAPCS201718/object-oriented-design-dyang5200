@@ -36,13 +36,26 @@ public class CashRegister
    
    /**
       Computes the change due and resets the machine for the next customer.
-      @return the change due to the customer
+      @return the maximum number of coins of the specified type to make change
    */
-   public double giveChange()
+   public int giveChange(Coin coinType)
    {
+      // if the customer hasn't completely paid, don't give change
+      if(payment<purchase)
+      {
+          return 0;
+      }
+      
       double change = payment - purchase;
-      purchase = 0;
-      payment = 0;
-      return change;
+      int count = (int) (change / coinType.getValue());
+      payment -= count*coinType.getValue();
+      
+      if(payment == purchase)
+      {
+          purchase = 0;
+          payment = 0;
+      }
+      
+      return count;
    }
 }
