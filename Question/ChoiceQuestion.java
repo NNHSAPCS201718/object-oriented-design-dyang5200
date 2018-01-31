@@ -12,9 +12,31 @@ public class ChoiceQuestion extends Question
    */
    public ChoiceQuestion()
    {
-      choices = new ArrayList<String>();
+      this.choices = new ArrayList<String>();
    }
 
+   /**
+    * Constructs a choice question with the specified question text and
+    *       no choices.
+    *       
+    * @param prompt the specified question text
+    */
+   public ChoiceQuestion(String prompt)
+   {
+       /*
+        * Explicitly call the Question class's constructor that takes
+        *       a string parameter. Calling a superclass's constructor
+        *       must be the first line of code in the subclass's constructor.
+        *       
+        * If we don't explicitly call a superclass's constructor, Java
+        *   will automatically call the superclass's default (it: no parameters) 
+        *   constructor.
+        */
+       super(prompt);
+       
+       this.choices = new ArrayList<String>();
+   }
+   
    /**
       Adds an answer choice to this question.
       @param choice the choice to add

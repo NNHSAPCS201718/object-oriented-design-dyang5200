@@ -16,6 +16,17 @@ public class Question
    }
 
    /**
+    * Constructs a question with the specified question text.
+    * 
+    * @param questionText specified question text
+    */
+   public Question(String questionText)
+   {
+       this.text = questionText;
+       this.answer = "";
+   }
+   
+   /**
       Sets the question text.
       @param questionText the text of this question
    */
