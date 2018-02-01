@@ -16,4 +16,10 @@ public class ATMCard extends Card
         this.cardNumber = cardNum;
         this.pin = pinNum;
     }
+    
+    public String toString()
+    {
+        String name = super.toString();
+        return name + "Card Number: " + cardNumber+" Pin: "+pin;
+    }
 }

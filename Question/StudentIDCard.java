@@ -14,4 +14,10 @@ public class StudentIDCard extends Card
        super(n);
        idNumber = id;
     }
+    
+    public String toString()
+    {
+        String name = super.toString();
+        return name + " ID Number: " + idNumber;
+    }
 }
