@@ -10,7 +10,7 @@ public class Wallet
     private Card card1;
     private Card card2;
     
-    public Wallet ()
+    public Wallet()
     {
         this.card1 = null;
         this.card2 = null;
@@ -48,5 +48,16 @@ public class Wallet
             message+="]";
         }
         return message;
+    }
+    
+    public int getExpiredCardCount()
+    {
+        int num = 0;
+        
+//        if(super.isExpired() == true)
+        {
+            num++;
+        }
+        return 0;
     }
 }

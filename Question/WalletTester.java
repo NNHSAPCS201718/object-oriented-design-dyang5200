@@ -11,7 +11,7 @@ public class WalletTester
     {
         Wallet wallet = new Wallet();
         StudentIDCard card1 = new StudentIDCard("Danielle", "21695");
-        DriverLicense card2 = new DriverLicense("Ciri", "2018");
+        DriverLicense card2 = new DriverLicense("Ciri", 2018);
         wallet.addCard(card1);
         wallet.addCard(card2);
         

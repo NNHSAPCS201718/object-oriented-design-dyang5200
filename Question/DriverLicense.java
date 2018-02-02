@@ -1,4 +1,5 @@
-
+import java.util.GregorianCalendar;
+import java.util.Calendar;
 /**
  * Write a description of class DriverLicense here.
  *
@@ -7,9 +8,9 @@
  */
 public class DriverLicense extends Card
 {
-    private String expYear;
+    private int expYear;
     
-    public DriverLicense(String n,String expYear)
+    public DriverLicense(String n,int expYear)
     {
         super(n);
         this.expYear = expYear;
@@ -19,5 +20,19 @@ public class DriverLicense extends Card
     {
         String name = super.toString();
         return name + " Expiration Year: " + expYear;
+    }
+    
+    public boolean isExpired()
+    {
+       GregorianCalendar calendar = new GregorianCalendar();
+       int currentYear = calendar.get(Calendar.YEAR);
+       if(expYear < currentYear)
+       {
+           return true;
+       }
+       else
+       {
+           return false;
+       }
     }
 }
