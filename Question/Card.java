@@ -13,6 +13,20 @@ public class Card
       name = n;
    }
 
+   public boolean equals(Object otherObject)
+   {
+       if(otherObject == null)
+       {
+           return false;
+       }
+       if(this.getClass() == otherObject.getClass())
+       {
+           Card other = (Card) otherObject;
+           return this.name.equals(other.name);
+       }
+       return false;
+   }
+   
    public String getName()
    {
       return name;
