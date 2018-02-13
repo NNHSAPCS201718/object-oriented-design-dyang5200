@@ -2,6 +2,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * This class demonstrates how to install an action listener.
@@ -16,7 +18,8 @@ public class ButtonViewer
     
     private JFrame frame;
     private JPanel panel;
-    private JButton button;
+    private JButton buttonA;
+    private JButton buttonB;
     private JLabel label;
     
     /**
@@ -28,18 +31,29 @@ public class ButtonViewer
         this.frame = new JFrame();
         this.panel = new JPanel();
         
-        this.button = new JButton("Click Me");
-        this.panel.add(this.button);
+        this.buttonA = new JButton("A");
+        this.panel.add(this.buttonA);
+        this.buttonB = new JButton("B");
+        this.panel.add(this.buttonB);
+        
         this.frame.add(this.panel);
         
         this.label = new JLabel("button was clicked 0 times");
         this.panel.add(this.label);
         
         // 2. create listener object
-        ClickListener listener = new ClickListener();
+         ActionListener listener = new ActionListener()
+            {
+                public void actionPerformed(ActionEvent event)
+                {
+                    label.setText("Button " + event.getActionCommand() + " was clicked");
+                    
+                }
+            };
         
         // 3. Register listener object with component that generates events
-        this.button.addActionListener(listener);
+        this.buttonA.addActionListener(listener);
+        this.buttonB.addActionListener(listener);
         
         // configure the frame and show it
         this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -50,5 +64,15 @@ public class ButtonViewer
     public static void main(String[] args)
     {
         ButtonViewer viewer = new ButtonViewer();
+    }
+    
+    public class ClickListener implements ActionListener
+    {
+        private int clickCount = 0;
+        public void actionPerformed(ActionEvent event)
+        {
+            clickCount++;
+            label.setText("Button " + event.getActionCommand() + " was clicked " + clickCount + " times");
+        }
     }
 }
