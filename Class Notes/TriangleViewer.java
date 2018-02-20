@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 /**
  * This program displays
@@ -9,17 +10,6 @@ import javax.swing.JPanel;
  */
 public class TriangleViewer
 {
-    private final int FRAME_WIDTH = 400;
-    private final int FRAME_HEIGHT = 400;
-    private JFrame frame;
-    private JPanel panel;
-    
-    public TriangleViewer()
-    {
-        this.frame = new JFrame();
-        this.panel = new JPanel();
-    }
-    
     public static void main(String[] args)
     {
         JFrame frame = new TriangleFrame();
