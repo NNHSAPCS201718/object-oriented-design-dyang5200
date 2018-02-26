@@ -3,10 +3,10 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.util.Scanner;
 
 /**
  * Create a JPanel object to which is added a CircleComponent object and
@@ -21,24 +21,45 @@ public class CircleFrame extends JFrame
     private static final int FRAME_WIDTH = 400;
     private static final int FRAME_HEIGHT = 400;
 
-    private JFrame frame;
-    private JButton drawButton;
     private JPanel panel;
+    private JButton drawButton;
     private CircleComponent component;
+    
+    private int xCoordinate;
+    private int yCoordinate;
+    private int radiusValue;
     
     public CircleFrame()
     {
         this.panel = new JPanel();
-        component = new CircleComponent();
+        this.drawButton = new JButton("Draw");
         this.panel.add(drawButton);
-        this.panel.add(component);
+        component = new CircleComponent(xCoordinate, yCoordinate, radiusValue);
+        this.panel.add(this.component);
         
-        this.frame.add(this.panel);
+        CircleListener listener = new CircleListener();
+        this.drawButton.addActionListener(listener);
+        
+        this.add(this.panel);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
     }
     
-    // The class that implements the ActionListener interface to respond to 
-    // the button press should be in the CircleFrame class as an inner class 
-    // where it will have access to the CircleComponent object via the 
-    // CircleFrame class' instance variable
+    
+    class CircleListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent event)
+        {
+            Scanner s = new Scanner(JOptionPane.showInputDialog("Enter the x-coordinate of the center of the circle: "));
+            int x = s.nextInt();
+            Scanner t = new Scanner(JOptionPane.showInputDialog("Enter the y-coordinate of the center of the circle: "));
+            int y = t.nextInt();
+            Scanner r = new Scanner(JOptionPane.showInputDialog("Enter the radius of the circle: "));
+            int radius = r.nextInt();
+            
+            xCoordinate = x;
+            yCoordinate = y;
+            radiusValue = radius;
+            repaint();
+        }
+    }
 }
