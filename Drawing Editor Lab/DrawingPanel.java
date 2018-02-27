@@ -37,5 +37,8 @@ public class DrawingPanel extends JPanel
         }
     }
 
-    
+    public Color getColor()
+    {
+        return fillColor;
+    }
 }

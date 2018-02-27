@@ -59,7 +59,10 @@ public class CircleFrame extends JFrame
             xCoordinate = x;
             yCoordinate = y;
             radiusValue = radius;
-            repaint();
+            
+            component.setValues(xCoordinate, yCoordinate, radiusValue);
+            
+            component.repaint();
         }
     }
 }

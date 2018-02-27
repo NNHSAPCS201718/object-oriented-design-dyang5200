@@ -24,12 +24,14 @@ public class CircleComponent extends JComponent
         this.x = xCoord;
         this.y = yCoord;
         this.radius = radiusValue;
-        this.setPreferredSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(100, 100));
     }
     
     public void setValues(int xCoord, int yCoord, int radiusValue)
     {
-        
+        this.x = xCoord;
+        this.y = yCoord;
+        this.radius = radiusValue;
     }
     
     public void paintComponent(Graphics g)
