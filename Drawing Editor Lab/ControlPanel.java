@@ -39,45 +39,36 @@ public class ControlPanel extends JPanel
         this.canvas.add(addCircle);
         this.canvas.add(addSquare);
         
-        //
-        // ... create and add buttons and selected color panel
-        //
-        
+        ButtonListener buttonListener = new ButtonListener();
+        pickColor.addActionListener(buttonListener);
+        addCircle.addActionListener(buttonListener);
+        addSquare.addActionListener(buttonListener);
         /*  
-         *  Attach the appropriate listener to the “Pick Color,” “Add Circle,” and 
-         *  “Add Square” buttons, using inner action listener classes or 
-         *  anonymous inline classes. 
-         *  
-         *  When “Pick Color” is clicked, call canvas’s pickColor method, then 
-         *  get the selected color back from canvas and show that color on 
-         *  the color display button. 
-         *  
          *  When “Add Circle” or “Add Square” is clicked, call canvas’s addCircle or 
          *  addSquare method. 
          */
     }
 
-    class PickColorListener implements ActionListener
+    /**
+     * Listener for the buttons.
+     */
+    class ButtonListener implements ActionListener
     {
         public void actionPerformed(ActionEvent event)
         {
-            canvas.pickColor();
-        }
-    }
-    
-    class AddCircleListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent event)
-        {
-            canvas.addCircle();
-        }
-    }
-    
-    class AddSquareListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent event)
-        {
-            canvas.addSquare();
+            if(event.getActionCommand() == "Pick Color")
+            {
+                canvas.pickColor();
+                panel.setBackground(canvas.getColor());
+            }
+            else if(event.getActionCommand() == "Add Circle")
+            {
+                canvas.addCircle();
+            }
+            else
+            {
+                canvas.addSquare();
+            }
         }
     }
 }
