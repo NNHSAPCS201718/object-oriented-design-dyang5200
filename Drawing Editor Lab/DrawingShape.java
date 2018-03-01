@@ -10,13 +10,18 @@ import java.awt.Graphics2D;
  */
 public class DrawingShape
 {
-    //add instance variables
+    private Point2D.Double shapeCenter;
+    private double shapeRadius;
+    private Color shapeColor;
+    
     /**
      * Constructor for objects of class DrawingShape
      */
     public DrawingShape(Point2D.Double center, double radius, Color color)
     {
-        
+        this.shapeCenter = center;
+        this.shapeRadius = radius;
+        this.shapeColor = color;
     }
     
     /**
@@ -26,7 +31,7 @@ public class DrawingShape
      */
     public Point2D.Double getCenter()
     {
-        
+        return this.shapeCenter;
     }
     
     /**
@@ -36,7 +41,7 @@ public class DrawingShape
      */
     public double getRadius()
     {
-        
+        return this.shapeRadius;
     }
     
     /**
@@ -46,6 +51,7 @@ public class DrawingShape
      */
     public Color getColor()
     {
+        return this.shapeColor;
     }
     
     /**
@@ -56,6 +62,7 @@ public class DrawingShape
      */
     public void move(double x, double y)
     {
+        this.shapeCenter.setLocation(x,y);
     }
     
     /**
@@ -65,16 +72,17 @@ public class DrawingShape
      */
     public void setRadius(double r)
     {
+        this.shapeRadius = r;
     }
     
     /**
      * Returns true if the point lies inside this shape, otherwise return false
+     *      Abstract in DrawingShape class
      * 
-     * @param point     the point in question
+     * @param  point    the point in question
+     * @return true if the point is inside the square, false otherwise
      */
-    public boolean isInside(Point2D.Double point)
-    {
-    }
+    public abstract boolean isInside(Point2D.Double point);
     
     /**
      * Draws the shape. Draws a filled shape if filled is true and a hollow shape otherwise
@@ -83,7 +91,5 @@ public class DrawingShape
      * @param g2        the Graphics object
      * @param filled    state of shape
      */
-    public void draw(Graphics2D g2, boolean filled)
-    {
-    }
+    public abstract void draw(Graphics2D g2, boolean filled);
 }
