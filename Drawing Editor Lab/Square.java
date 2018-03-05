@@ -1,7 +1,7 @@
 import java.awt.geom.Point2D;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D.Double;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Models a square object
@@ -17,13 +17,6 @@ public class Square extends DrawingShape
     public Square(Point2D.Double center, double radius, Color color)
     {
         super(center, radius, color);   // calls constructor of DrawingShape
-    }
-
-    /**
-     * Adds a square
-     */
-    public void addSquare()
-    {
     }
     
     /**
@@ -60,14 +53,14 @@ public class Square extends DrawingShape
     public void draw(Graphics2D g2, boolean filled)
     {
         Graphics2D g = (Graphics2D) g2;
+        Rectangle2D.Double rect = new Rectangle2D.Double(this.getCenter().getX()-this.getRadius(), 
+                                        this.getCenter().getY()-this.getRadius(), 
+                                        this.getRadius(),this.getRadius());   
+        g2.setColor(this.getColor());
+        g2.draw(rect);
         if(filled == true)
         {
-            // find center of the panel. not getCenter()
-            // see addSquare method in drawingPanel if confused (Mr. Schmit's google docs)
-            Rectangle2D.Double rect = new Rectangle2D.Double(this.getCenter().getX(), 
-                                        this.getCenter().getY(), this.getRadius(),
-                                        this.getRadius());
-                                        
+            g2.fill(rect);
         }
     }
 }

@@ -1,7 +1,7 @@
 import java.awt.geom.Point2D;
 import java.awt.Color;
 import java.awt.Graphics2D;
-
+import java.awt.geom.Ellipse2D;
 /**
  * Models a Circle object
  *
@@ -19,19 +19,22 @@ public class Circle extends DrawingShape
     }
     
     /**
-     * Adds a circle.
-     */
-    public void addCircle()
-    {
-    }
-    
-    /**
      * Returns true if the point lies inside the circle, false otherwise
      * 
-     * @return  point       the point in question
+     * @param  point       the point in question
+     * @return  true if the point is inside the circle, false otherwise
      */
     public boolean isInside(Point2D.Double point)
     {
+        double distance = this.getCenter().distance(point);
+        if(distance < this.getRadius())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     /**
@@ -43,6 +46,15 @@ public class Circle extends DrawingShape
      */
     public void draw(Graphics2D g2, boolean filled)
     {
-        
+        Graphics2D g = (Graphics2D) g2;
+        Ellipse2D.Double circ = new Ellipse2D.Double(this.getCenter().getX()-this.getRadius(), 
+                                        this.getCenter().getY()-this.getRadius(), 
+                                        this.getRadius(),this.getRadius());   
+        g2.setColor(this.getColor());
+        g2.draw(circ);
+        if(filled == true)
+        {
+            g2.fill(circ);
+        }
     }
 }

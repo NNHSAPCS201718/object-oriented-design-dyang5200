@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class DrawingShape
+public abstract class DrawingShape
 {
     private Point2D.Double shapeCenter;
     private double shapeRadius;
