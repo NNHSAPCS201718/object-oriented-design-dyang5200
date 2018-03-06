@@ -2,11 +2,14 @@ import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseEvent;
+import java.util.Random;
+import java.awt.geom.Point2D;
 
 /**
  * The panel in which draws all of the shapes in the drawing editor
@@ -19,30 +22,32 @@ public class DrawingPanel extends JPanel
     private Color fillColor;
     private ArrayList<DrawingShape> shapeList;
     private DrawingShape activeShape;
-    private boolean shapeStatus;
-    
+    private ArrayList<Boolean> isPicked;
     /**
      * Default constructor for objects of class DrawingPanel
      */
     public DrawingPanel()
     {
          this.setBackground(Color.WHITE);
-         this.fillColor = Color.CYAN;
+         this.fillColor = Color.BLUE;
          
          Listener listener = new Listener();
-         this.addListener(listener);
+         this.addMouseListener(listener);
          
          MotionListener motionListener = new MotionListener();
-         this.addListener(motionListener);
+         this.addMouseMotionListener(motionListener);
          
          shapeList = new ArrayList<DrawingShape>();
     }
     
+    /**
+     * Inner class
+     */
     class Listener implements MouseListener
     {
         public void mousePressed(MouseEvent event)
         {
-            
+            repaint();
         }
         public void mouseReleased(MouseEvent event) {}
         public void mouseClicked(MouseEvent event) {}
@@ -54,7 +59,7 @@ public class DrawingPanel extends JPanel
     {
         public void mouseDragged(MouseEvent event)
         {
-            
+            repaint();
         }
         public void mouseMoved(MouseEvent event){}
     }
@@ -91,6 +96,8 @@ public class DrawingPanel extends JPanel
      */
     public Dimension getPreferredSize()
     {
+        Dimension dimension = new Dimension(500,500);
+        return dimension;
     }
     
     /**
@@ -98,11 +105,14 @@ public class DrawingPanel extends JPanel
      */
     public void addCircle()
     {
-        /*
-         * The new circle has its center at the center of the drawing panel, 
-         * a random radius (within a reasonable range) and the current drawing color. 
-         * The new circle is designated as the “active shape.”
-         */
+        Random randomGenerator = new Random();
+        int randomRadius = randomGenerator.nextInt(50) + 1;
+        double width = (this.getPreferredSize().getWidth()) / 2.0;
+        double height = (this.getPreferredSize().getHeight()) / 2.0;
+        Point2D.Double centerPoint = new Point2D.Double(width,height);
+        Circle circle = new Circle(centerPoint,randomRadius, fillColor);
+        shapeList.add(circle);
+        this.activeShape = circle;
     }
     
     /**
@@ -110,7 +120,14 @@ public class DrawingPanel extends JPanel
      */
     public void addSquare()
     {
-        
+        Random randomGenerator = new Random();
+        int randomRadius = randomGenerator.nextInt(50) + 1;
+        double width = (this.getPreferredSize().getWidth()) / 2.0;
+        double height = (this.getPreferredSize().getHeight()) / 2.0;
+        Point2D.Double centerPoint = new Point2D.Double(width,height);
+        Square newSquare = new Square(centerPoint,randomRadius, fillColor);
+        shapeList.add(newSquare);
+        this.activeShape = newSquare;
     }
     
     /**
@@ -120,5 +137,17 @@ public class DrawingPanel extends JPanel
      */
     public void paintComponent(Graphics g)
     {
+        Graphics2D g2 = (Graphics2D) g;
+        for(DrawingShape drawingShape : shapeList)
+        {
+            if(drawingShape == activeShape)
+            {
+                drawingShape.draw(g2,false);
+            }
+            else
+            {
+                drawingShape.draw(g2,true);
+            }
+        }
     }
 }

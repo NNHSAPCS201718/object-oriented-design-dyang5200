@@ -63,13 +63,11 @@ public class ControlPanel extends JPanel
             }
             else if(event.getActionCommand() == "Add Circle")
             {
-                System.out.println("I'm going to add a circle");
-                //canvas.addCircle();
+                canvas.addCircle();
             }
             else
             {
-                System.out.println("I'm going to add a square");
-                //canvas.addSquare();
+                canvas.addSquare();
             }
         }
     }
