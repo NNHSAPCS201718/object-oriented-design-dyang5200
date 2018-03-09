@@ -49,7 +49,7 @@ public class Circle extends DrawingShape
         Graphics2D g = (Graphics2D) g2;
         Ellipse2D.Double circ = new Ellipse2D.Double(this.getCenter().getX()-this.getRadius(), 
                                         this.getCenter().getY()-this.getRadius(), 
-                                        this.getRadius(),this.getRadius());   
+                                        this.getRadius()*2,this.getRadius()*2);   
         g2.setColor(this.getColor());
         g2.draw(circ);
         if(filled == true)

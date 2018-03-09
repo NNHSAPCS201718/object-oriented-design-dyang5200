@@ -24,6 +24,9 @@ public class DrawingPanel extends JPanel
     private ArrayList<DrawingShape> shapeList;
     private DrawingShape activeShape;
     private ArrayList<Boolean> isPicked;
+    private double xDistance;
+    private double yDistance;
+    
     /**
      * Default constructor for objects of class DrawingPanel
      */
@@ -41,12 +44,9 @@ public class DrawingPanel extends JPanel
          shapeList = new ArrayList<DrawingShape>();
     }
     
-    //When the mouse is pressed on shapes, make sure you pick the topmost shape that 
-    //contains the coordinates of the click. If you add shapes at the end of the list, 
-    //then you need to scan the list from the end backward to achieve that.
     
     /**
-     * Inner class
+     * Listens to see which shapes are pressed or if no shape is pressed
      */
     class Listener implements MouseListener
     {
@@ -54,6 +54,8 @@ public class DrawingPanel extends JPanel
         {
             int x = event.getX();
             int y = event.getY();
+            
+            activeShape = null;
             Point2D.Double point = new Point2D.Double(x,y);
             for(int i=shapeList.size()-1; i>=0; i--) 
             {
@@ -63,6 +65,11 @@ public class DrawingPanel extends JPanel
                     break;
                 }
             }
+            
+            try{xDistance = x-activeShape.getCenter().getX();
+            yDistance = y-activeShape.getCenter().getY();}
+            catch(NullPointerException e){}
+            
             repaint();
         }
         public void mouseReleased(MouseEvent event) {}
@@ -71,13 +78,17 @@ public class DrawingPanel extends JPanel
         public void mouseExited(MouseEvent event) {}
     }
     
+    /**
+     * Listens to see where to drag shapes
+     */
     class MotionListener implements MouseMotionListener
     {
         public void mouseDragged(MouseEvent event)
         {
-            double x = event.getX();
-            double y = event.getY();
-            activeShape.move(x,y);
+            double x = event.getX() - xDistance;
+            double y = event.getY() - yDistance;
+            try{activeShape.move(x,y);}
+            catch(NullPointerException e){}
             repaint();
         }
         public void mouseMoved(MouseEvent event){}
@@ -125,7 +136,7 @@ public class DrawingPanel extends JPanel
     public void addCircle()
     {
         Random randomGenerator = new Random();
-        int randomRadius = randomGenerator.nextInt(50) + 1;
+        int randomRadius = randomGenerator.nextInt(50) + 50;
         double width = (this.getPreferredSize().getWidth()) / 2.0;
         double height = (this.getPreferredSize().getHeight()) / 2.0;
         Point2D.Double centerPoint = new Point2D.Double(width,height);
@@ -140,7 +151,7 @@ public class DrawingPanel extends JPanel
     public void addSquare()
     {
         Random randomGenerator = new Random();
-        int randomRadius = randomGenerator.nextInt(50) + 1;
+        int randomRadius = randomGenerator.nextInt(50) + 50;
         double width = (this.getPreferredSize().getWidth()) / 2.0;
         double height = (this.getPreferredSize().getHeight()) / 2.0;
         Point2D.Double centerPoint = new Point2D.Double(width,height);

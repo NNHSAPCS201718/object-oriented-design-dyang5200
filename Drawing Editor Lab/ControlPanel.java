@@ -34,19 +34,15 @@ public class ControlPanel extends JPanel
         Color initialColor = this.canvas.getColor();
         panel.setBackground(initialColor);
         
-        this.canvas.add(pickColor);
-        this.canvas.add(panel);
-        this.canvas.add(addCircle);
-        this.canvas.add(addSquare);
+        this.add(pickColor);
+        this.add(panel);
+        this.add(addCircle);
+        this.add(addSquare);
         
         ButtonListener buttonListener = new ButtonListener();
         pickColor.addActionListener(buttonListener);
         addCircle.addActionListener(buttonListener);
         addSquare.addActionListener(buttonListener);
-        /*  
-         *  When “Add Circle” or “Add Square” is clicked, call canvas’s addCircle or 
-         *  addSquare method. 
-         */
     }
 
     /**

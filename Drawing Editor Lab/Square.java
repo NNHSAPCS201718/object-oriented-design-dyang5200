@@ -55,12 +55,13 @@ public class Square extends DrawingShape
         Graphics2D g = (Graphics2D) g2;
         Rectangle2D.Double rect = new Rectangle2D.Double(this.getCenter().getX()-this.getRadius(), 
                                         this.getCenter().getY()-this.getRadius(), 
-                                        this.getRadius(),this.getRadius());   
+                                        this.getRadius()*2,this.getRadius()*2);   
         g2.setColor(this.getColor());
         g2.draw(rect);
         if(filled == true)
         {
             g2.fill(rect);
         }
+        
     }
 }

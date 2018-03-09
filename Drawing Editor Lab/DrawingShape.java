@@ -62,6 +62,7 @@ public abstract class DrawingShape
      */
     public void move(double x, double y)
     {
+        
         this.shapeCenter.setLocation(x,y);
     }
     
