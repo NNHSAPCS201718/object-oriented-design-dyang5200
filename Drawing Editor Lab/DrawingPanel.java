@@ -10,6 +10,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 import java.awt.geom.Point2D;
+import java.awt.Point;
 
 /**
  * The panel in which draws all of the shapes in the drawing editor
@@ -40,6 +41,10 @@ public class DrawingPanel extends JPanel
          shapeList = new ArrayList<DrawingShape>();
     }
     
+    //When the mouse is pressed on shapes, make sure you pick the topmost shape that 
+    //contains the coordinates of the click. If you add shapes at the end of the list, 
+    //then you need to scan the list from the end backward to achieve that.
+    
     /**
      * Inner class
      */
@@ -47,6 +52,17 @@ public class DrawingPanel extends JPanel
     {
         public void mousePressed(MouseEvent event)
         {
+            int x = event.getX();
+            int y = event.getY();
+            Point2D.Double point = new Point2D.Double(x,y);
+            for(int i=shapeList.size()-1; i>=0; i--) 
+            {
+                if(shapeList.get(i).isInside(point))
+                {
+                    activeShape = shapeList.get(i);
+                    break;
+                }
+            }
             repaint();
         }
         public void mouseReleased(MouseEvent event) {}
@@ -59,6 +75,9 @@ public class DrawingPanel extends JPanel
     {
         public void mouseDragged(MouseEvent event)
         {
+            double x = event.getX();
+            double y = event.getY();
+            activeShape.move(x,y);
             repaint();
         }
         public void mouseMoved(MouseEvent event){}
@@ -137,6 +156,7 @@ public class DrawingPanel extends JPanel
      */
     public void paintComponent(Graphics g)
     {
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         for(DrawingShape drawingShape : shapeList)
         {
@@ -149,5 +169,6 @@ public class DrawingPanel extends JPanel
                 drawingShape.draw(g2,true);
             }
         }
+        repaint();
     }
 }
