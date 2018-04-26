@@ -23,7 +23,6 @@ public class DrawingPanel extends JPanel
     private Color fillColor;
     private ArrayList<DrawingShape> shapeList;
     private DrawingShape activeShape;
-    private ArrayList<Boolean> isPicked;
     private double xDistance;
     private double yDistance;
     
@@ -62,13 +61,11 @@ public class DrawingPanel extends JPanel
                 if(shapeList.get(i).isInside(point))
                 {
                     activeShape = shapeList.get(i);
+                    xDistance = x-activeShape.getCenter().getX();
+                    yDistance = y-activeShape.getCenter().getY();
                     break;
                 }
             }
-            
-            try{xDistance = x-activeShape.getCenter().getX();
-            yDistance = y-activeShape.getCenter().getY();}
-            catch(NullPointerException e){}
             
             repaint();
         }
@@ -85,11 +82,13 @@ public class DrawingPanel extends JPanel
     {
         public void mouseDragged(MouseEvent event)
         {
-            double x = event.getX() - xDistance;
-            double y = event.getY() - yDistance;
-            try{activeShape.move(x,y);}
-            catch(NullPointerException e){}
-            repaint();
+            if(activeShape != null)
+            {
+                double x = event.getX() - xDistance;
+                double y = event.getY() - yDistance;
+                activeShape.move(x,y);
+                repaint();
+            }
         }
         public void mouseMoved(MouseEvent event){}
     }
@@ -143,6 +142,7 @@ public class DrawingPanel extends JPanel
         Circle circle = new Circle(centerPoint,randomRadius, fillColor);
         shapeList.add(circle);
         this.activeShape = circle;
+        repaint();
     }
     
     /**
@@ -158,6 +158,7 @@ public class DrawingPanel extends JPanel
         Square newSquare = new Square(centerPoint,randomRadius, fillColor);
         shapeList.add(newSquare);
         this.activeShape = newSquare;
+        repaint();
     }
     
     /**
@@ -180,6 +181,5 @@ public class DrawingPanel extends JPanel
                 drawingShape.draw(g2,true);
             }
         }
-        repaint();
     }
 }
