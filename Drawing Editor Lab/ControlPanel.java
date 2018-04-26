@@ -52,12 +52,12 @@ public class ControlPanel extends JPanel
     {
         public void actionPerformed(ActionEvent event)
         {
-            if(event.getActionCommand() == "Pick Color")
+            if(event.getSource() == pickColor)
             {
                 canvas.pickColor();
                 panel.setBackground(canvas.getColor());
             }
-            else if(event.getActionCommand() == "Add Circle")
+            else if(event.getSource() == addCircle)
             {
                 canvas.addCircle();
             }
